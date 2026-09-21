@@ -20,11 +20,28 @@ export function createElement(tag, attrs = {}, ...children) {
       el.addEventListener(key.slice(2).toLowerCase(), val);
     } else if (key === 'className') {
       el.className = val;
-    } else if (key === 'dataset') {
+    } else if (key === 'dataset' && typeof val === 'object' && val !== null) {
       for (const [dKey, dVal] of Object.entries(val)) el.dataset[dKey] = dVal;
     } else if (key === 'html') {
       el.innerHTML = val;
-    } else {
+    } else if (key === 'checked') {
+      el.checked = Boolean(val);
+      if (val) el.setAttribute('checked', '');
+      else el.removeAttribute('checked');
+    } else if (key === 'disabled') {
+      el.disabled = Boolean(val);
+      if (val) el.setAttribute('disabled', '');
+      else el.removeAttribute('disabled');
+    } else if (key === 'selected') {
+      el.selected = Boolean(val);
+      if (val) el.setAttribute('selected', '');
+      else el.removeAttribute('selected');
+    } else if (key === 'value') {
+      el.value = val ?? '';
+    } else if (typeof val === 'boolean') {
+      if (val) el.setAttribute(key, '');
+      else el.removeAttribute(key);
+    } else if (val !== null && val !== undefined) {
       el.setAttribute(key, val);
     }
   }

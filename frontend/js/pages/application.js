@@ -108,13 +108,16 @@ function renderRequirements() {
       docInfo: docs[r.id],
       onDocInfo: () => openDocModal(r.id, r.title, docs[r.id]),
       onToggle: async (checked) => {
+        const prev = r.completed;
+        r.completed = checked;
+        renderAll();
         try {
           await updateRequirement(appId, r.id, { completed: checked });
-          r.completed = checked;
-          renderAll();
           const { percentage } = getReadinessCalc();
           toast.info(`Progress updated: ${percentage}% ready`);
         } catch (e) {
+          r.completed = prev;
+          renderAll();
           toast.error('Failed to update requirement');
         }
       },
