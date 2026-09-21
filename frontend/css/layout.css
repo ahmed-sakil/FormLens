@@ -314,7 +314,84 @@ body.page-exiting .landing-container {
   line-height: 1.1;
 }
 
-/* ─── 7. Responsive Breakpoints ─── */
+/* ─── 7. Mobile Bottom Navigation Bar (Short / Mobile Devices) ─── */
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--color-border);
+  z-index: 150;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .mobile-bottom-nav {
+  background: rgba(7, 10, 17, 0.92);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-bottom-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 6px 0;
+  position: relative;
+  transition: color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-smooth);
+}
+
+.mobile-bottom-item:hover {
+  color: var(--color-text-primary);
+}
+
+.mobile-bottom-item:active {
+  transform: scale(0.96);
+}
+
+.mobile-bottom-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  transition: transform var(--duration-fast) var(--ease-smooth);
+}
+
+.mobile-bottom-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* Active Bottom Navigation Item */
+.mobile-bottom-item.active {
+  color: var(--color-accent-blue);
+  font-weight: 600;
+}
+
+.mobile-bottom-item.active .mobile-bottom-icon {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.35));
+}
+
+[data-theme="dark"] .mobile-bottom-item.active .mobile-bottom-icon {
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.5));
+}
+
+/* ─── 8. Responsive Breakpoints ─── */
 
 @media (max-width: 900px) {
   .sidebar {
@@ -330,9 +407,13 @@ body.page-exiting .landing-container {
   }
   .main-content {
     margin-left: 0;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
   .mobile-menu-btn {
     display: block;
+  }
+  .mobile-bottom-nav {
+    display: grid;
   }
   .navbar {
     padding: 0 var(--space-4);
