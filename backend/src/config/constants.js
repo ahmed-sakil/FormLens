@@ -1,0 +1,8 @@
+export const EXPIRING_SOON_DAYS = 30;
+export const PASSWORD_CHANGE_COOLDOWN_MINUTES = 30;
+export const DEADLINE_APPROACHING_DAYS = 14;
+export const DEADLINE_URGENT_DAYS = 3;
+export const REMINDER_DAYS = { DAYS_1: 1, DAYS_3: 3, DAYS_7: 7, DAYS_14: 14, DAYS_30: 30 };
+export const MAX_TITLE_LENGTH = 200;
+export const MAX_DESCRIPTION_LENGTH = 2000;
+export const MAX_NOTES_LENGTH = 1000;

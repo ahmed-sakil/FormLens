@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/profile.css">
+  <title>Settings — FormLens</title>
+  <style>
+    .theme-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+    .theme-card {
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      text-align: center;
+      cursor: pointer;
+      background: var(--color-surface);
+      transition: all var(--duration-fast) var(--ease-smooth);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      user-select: none;
+    }
+    .theme-card:hover {
+      border-color: var(--blue-300);
+      transform: translateY(-2px);
+    }
+    .theme-card.active {
+      border-color: var(--color-accent-blue);
+      background: var(--color-accent-blue-subtle);
+      box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+    }
+    .theme-icon {
+      font-size: 1.5rem;
+    }
+    .theme-label {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .theme-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">FormLens</div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link" id="link-dashboard">Dashboard</a>
+      <a href="applications.html" class="sidebar-link" id="link-applications">Applications</a>
+      <a href="profile.html" class="sidebar-link" id="link-profile">Profile</a>
+      <a href="settings.html" class="sidebar-link" id="link-settings">Settings</a>
+    </nav>
+  </aside>
+  <div class="main-content">
+    <div id="navbar-container"></div>
+    <main class="page-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <h1>Settings &amp; Preferences</h1>
+        </div>
+        
+        <div id="guest-reminder" class="hidden local-mode-banner" style="border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+          <span>You are using Local Mode. Create an account to enable cloud sync and email reminders.</span>
+          <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+        </div>
+        
+        <div class="profile-container" style="margin: 0; max-width: 650px;">
+          <div class="profile-section">
+            <h2 class="profile-section-title">Appearance Theme</h2>
+            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+              Choose your preferred visual theme for FormLens.
+            </p>
+            <div class="theme-cards">
+              <div class="theme-card" data-theme-val="light" id="theme-card-light">
+                <div class="theme-icon">☀️</div>
+                <div class="theme-label">Light</div>
+              </div>
+              <div class="theme-card" data-theme-val="dark" id="theme-card-dark">
+                <div class="theme-icon">🌙</div>
+                <div class="theme-label">Dark</div>
+              </div>
+              <div class="theme-card" data-theme-val="system" id="theme-card-system">
+                <div class="theme-icon">💻</div>
+                <div class="theme-label">System</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h2 class="profile-section-title">About FormLens</h2>
+            <div class="info-row"><span class="info-label">Version</span><span class="info-value">1.0.0 (V1)</span></div>
+            <div class="info-row"><span class="info-label">Design Language</span><span class="info-value">Obsidian, Pure White &amp; Electric Blue</span></div>
+            <div class="info-row"><span class="info-label">Storage Engine</span><span class="info-value">Supabase + PostgreSQL / Browser Local</span></div>
+          </div>
+        </div>
+  
+      </div>
+    </main>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/pages/settings.js"></script>
+  <script>document.getElementById('link-settings').classList.add('active');</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+
+  <link rel="stylesheet" href="css/pages/dashboard.css">
+  <title>Dashboard — FormLens</title>
+</head>
+<body>
+  
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">FormLens</div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link" id="link-dashboard">Dashboard</a>
+      <a href="applications.html" class="sidebar-link" id="link-applications">Applications</a>
+      <a href="profile.html" class="sidebar-link" id="link-profile">Profile</a>
+      <a href="settings.html" class="sidebar-link" id="link-settings">Settings</a>
+    </nav>
+  </aside>
+  <div class="main-content">
+    <div id="navbar-container"></div>
+    <main class="page-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <h1>Dashboard</h1>
+        </div>
+        
+        <div class="grid-4" style="margin-bottom: var(--space-8)">
+          <div class="stat-card"><div class="stat-title">Total Applications</div><div class="stat-value" id="stat-total">—</div></div>
+          <div class="stat-card"><div class="stat-title">Active</div><div class="stat-value" id="stat-active">—</div></div>
+          <div class="stat-card"><div class="stat-title">Ready to Submit</div><div class="stat-value" id="stat-ready">—</div></div>
+          <div class="stat-card"><div class="stat-title">Needs Attention</div><div class="stat-value" id="stat-attention">—</div></div>
+        </div>
+        
+        <div class="grid-2">
+          <div class="dashboard-section">
+            <div class="dashboard-section-header">
+              <h3>Upcoming Deadlines</h3>
+              <a href="applications.html" class="btn btn-ghost btn-sm">View All</a>
+            </div>
+            <div id="upcoming-deadlines" style="display: flex; flex-direction: column; gap: var(--space-4);">
+              <div class="skeleton" style="height: 80px; border-radius: var(--radius-lg);"></div>
+            </div>
+          </div>
+          
+          <div class="dashboard-section">
+            <div class="dashboard-section-header">
+              <h3>Recent Applications</h3>
+            </div>
+            <div id="recent-applications" style="display: flex; flex-direction: column; gap: var(--space-4);">
+              <div class="skeleton" style="height: 80px; border-radius: var(--radius-lg);"></div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </main>
+  </div>
+</div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+
+  <script type="module" src="js/pages/dashboard.js"></script>
+  <script>document.getElementById('link-dashboard').classList.add('active');</script>
+</body>
+</html>

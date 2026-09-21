@@ -1,0 +1,8 @@
+{
+  "name": "formlens-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build-env.js"
+  }
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/profile.css">
+  <title>Profile — FormLens</title>
+</head>
+<body>
+  
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">FormLens</div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link" id="link-dashboard">Dashboard</a>
+      <a href="applications.html" class="sidebar-link" id="link-applications">Applications</a>
+      <a href="profile.html" class="sidebar-link" id="link-profile">Profile</a>
+      <a href="settings.html" class="sidebar-link" id="link-settings">Settings</a>
+    </nav>
+  </aside>
+  <div class="main-content">
+    <div id="navbar-container"></div>
+    <main class="page-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <h1>Account &amp; Profile</h1>
+        </div>
+        
+        <!-- Guest View (shown when in Guest Mode) -->
+        <div id="guest-profile-view" class="profile-container hidden">
+          <div class="profile-section">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4);">
+              <h2 class="profile-section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Local Account</h2>
+              <span class="local-mode-badge">Guest Mode</span>
+            </div>
+            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">
+              You are using FormLens in <strong>Local Mode</strong>. Your applications and requirements are stored locally in your browser.
+            </p>
+            <div style="background: var(--color-surface-2); padding: var(--space-4); border-radius: var(--radius); margin-bottom: var(--space-6);">
+              <div class="info-row"><span class="info-label">Storage Location</span><span class="info-value">This Browser</span></div>
+              <div class="info-row"><span class="info-label">Sync Status</span><span class="info-value" style="color: var(--color-warning);">Not Synced</span></div>
+              <div class="info-row"><span class="info-label">Email Reminders</span><span class="info-value" style="color: var(--color-text-muted);">Disabled (Requires Account)</span></div>
+            </div>
+            
+            <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-2);">Upgrade to a Free Account</h3>
+            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
+              Create an account to automatically sync your existing local data, access applications from any device, and receive email reminders before deadlines.
+            </p>
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+              <a href="register.html" class="btn btn-primary">Create Free Account</a>
+              <a href="login.html" class="btn btn-secondary">Sign In</a>
+            </div>
+          </div>
+          
+          <div class="profile-section">
+            <h2 class="profile-section-title">Local Data Management</h2>
+            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
+              Clear all locally stored applications, requirements, and document records on this device.
+            </p>
+            <button id="btn-clear-guest-data" class="btn btn-danger btn-sm">Clear Local Data</button>
+          </div>
+        </div>
+
+        <!-- Registered View (shown when logged in) -->
+        <div id="registered-profile-view" class="profile-container hidden">
+          <div class="profile-section">
+            <h2 class="profile-section-title">Profile Information</h2>
+            <form id="profile-info-form">
+              <div class="form-group">
+                <label class="form-label" for="profile-name-input">Full Name</label>
+                <input type="text" id="profile-name-input" class="form-input" required>
+              </div>
+              <div class="info-row"><span class="info-label">Email</span><span class="info-value" id="profile-email">Loading...</span></div>
+              <div class="info-row"><span class="info-label">Member Since</span><span class="info-value" id="profile-created">Loading...</span></div>
+              <div style="margin-top: var(--space-4); display: flex; justify-content: flex-end;">
+                <button type="submit" id="btn-save-profile" class="btn btn-primary btn-sm">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="profile-section">
+            <h2 class="profile-section-title">Security &amp; Password</h2>
+            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--space-4);">
+              Ensure your account has a strong password (at least 8 characters).
+            </p>
+            <form id="change-password-form">
+              <div class="form-group">
+                <label class="form-label" for="new-password">New Password</label>
+                <input type="password" id="new-password" class="form-input" placeholder="Min. 8 characters" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" class="form-input" placeholder="Re-enter password" required>
+              </div>
+              <div id="password-cooldown-notice" class="hidden" style="margin-bottom: var(--space-3); font-size: var(--font-size-sm); color: var(--color-warning);">
+                Password changed recently. Please wait before changing it again.
+              </div>
+              <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" id="btn-change-password" class="btn btn-secondary btn-sm">Update Password</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="profile-section danger-zone">
+            <h2 class="profile-section-title">Sign Out</h2>
+            <p style="margin-bottom: var(--space-4); font-size: var(--font-size-sm);">Log out of your account on this device.</p>
+            <button id="btn-logout" class="btn btn-danger">Log Out</button>
+          </div>
+        </div>
+  
+      </div>
+    </main>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/pages/profile.js"></script>
+  <script>document.getElementById('link-profile').classList.add('active');</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/env.js
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Prisma generated artifacts (except client)
+prisma/migrations/dev.db*

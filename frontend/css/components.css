@@ -1,0 +1,680 @@
+/* ==========================================================================
+   FormLens Components Design System
+   Pure CSS Mastery: Left-to-Right Button Shade Sweep, Micro-interactions,
+   and Sleek Monochromatic & Blue Accents
+   ========================================================================== */
+
+/* ─── 1. Interactive Buttons with Left-to-Right Shade Sweep ─── */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-normal) var(--ease-smooth),
+              border-color var(--duration-normal) var(--ease-smooth),
+              background-color var(--duration-normal) var(--ease-smooth),
+              color var(--duration-normal) var(--ease-smooth);
+}
+
+/* The Animated Left-to-Right Shade/Sweep Overlay */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  transform: translateX(-200%) skewX(-25deg);
+  transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.9;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translateX(150%) skewX(-25deg);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Button Variants */
+
+/* Primary Button (Obsidian in Light, Crisp White/Blue in Dark) */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 40%,
+    rgba(96, 165, 250, 0.4) 60%,
+    transparent 100%
+  );
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  box-shadow: var(--shadow-md), var(--shadow-blue-glow);
+}
+
+/* Blue Accent Button */
+.btn-blue {
+  background-color: var(--color-accent-blue);
+  color: #ffffff;
+  border-color: var(--color-accent-blue);
+  box-shadow: var(--shadow-sm);
+}
+.btn-blue::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+}
+.btn-blue:hover {
+  background-color: var(--color-accent-blue-hover);
+  border-color: var(--color-accent-blue-hover);
+  box-shadow: var(--shadow-md), var(--shadow-blue-glow);
+}
+
+/* Secondary Button (Clean Slate with Blue Shade Sweep) */
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(37, 99, 235, 0.15) 30%,
+    rgba(96, 165, 250, 0.25) 50%,
+    transparent 100%
+  );
+}
+.btn-secondary:hover {
+  background-color: var(--color-surface-2);
+  border-color: var(--blue-300);
+  color: var(--color-accent-blue);
+  box-shadow: var(--shadow);
+}
+[data-theme="dark"] .btn-secondary:hover {
+  border-color: var(--blue-700);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+.btn-ghost::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(37, 99, 235, 0.12) 50%,
+    transparent 100%
+  );
+}
+.btn-ghost:hover {
+  background-color: var(--color-accent-blue-subtle);
+  color: var(--color-accent-blue);
+}
+
+/* Danger Button */
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #ffffff;
+  border-color: var(--color-danger);
+}
+.btn-danger::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+}
+.btn-danger:hover {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
+}
+
+/* Sizes */
+.btn-xs { padding: 0.25rem 0.625rem; font-size: var(--font-size-xs); border-radius: var(--radius-sm); }
+.btn-sm { padding: 0.375rem 0.875rem; font-size: var(--font-size-xs); border-radius: var(--radius-sm); }
+.btn-lg { padding: 0.875rem 1.75rem; font-size: var(--font-size-base); border-radius: var(--radius-lg); }
+
+.btn[disabled], .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.5);
+}
+
+
+/* ─── 2. Form Inputs with Glowing Blue Focus ─── */
+
+.form-group {
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  transition: border-color var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-fast) var(--ease-smooth),
+              background-color var(--duration-fast) var(--ease-smooth);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-input:hover, .form-select:hover, .form-textarea:hover {
+  border-color: var(--color-border-strong);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  background-color: var(--color-bg);
+  border-color: var(--color-accent-blue);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  user-select: none;
+}
+
+.checkbox-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.checkbox-input::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(-45deg) scale(0);
+  transition: transform var(--duration-fast) var(--ease-smooth);
+  margin-top: -2px;
+}
+
+.checkbox-input:checked {
+  background-color: var(--color-accent-blue);
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.35);
+}
+
+.checkbox-input:checked::before {
+  transform: rotate(-45deg) scale(1);
+}
+
+.checkbox-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
+/* ─── 3. Cards & Hover Elevations ─── */
+
+.card {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--duration-normal) var(--ease-smooth),
+              box-shadow var(--duration-normal) var(--ease-smooth),
+              border-color var(--duration-normal) var(--ease-smooth);
+}
+
+.card-header {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body {
+  padding: var(--space-5);
+  flex: 1;
+}
+
+.card-footer {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* Application Interactive Card */
+.application-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+.application-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition: border-color var(--duration-normal) var(--ease-smooth);
+}
+
+.application-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md), var(--shadow-blue-glow);
+  border-color: var(--blue-400);
+}
+[data-theme="dark"] .application-card:hover {
+  border-color: var(--blue-500);
+}
+
+.application-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-primary);
+}
+
+
+/* ─── 4. Progress Bars with Blue Shimmer ─── */
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-surface-2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--blue-600) 0%, var(--blue-400) 100%);
+  transition: width 0.6s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmerSweep 2.2s infinite var(--ease-in-out);
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+
+/* ─── 5. Badges & Indicators ─── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.2rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-category {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.badge-active {
+  background-color: var(--blue-50);
+  color: var(--blue-700);
+  border: 1px solid var(--blue-200);
+}
+[data-theme="dark"] .badge-active {
+  background-color: rgba(37, 99, 235, 0.2);
+  color: var(--blue-300);
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+.badge-completed {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
+.badge-archived {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+/* Local Mode Badges */
+.local-mode-badge {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  color: var(--blue-700);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+[data-theme="dark"] .local-mode-badge {
+  background: rgba(37, 99, 235, 0.18);
+  border-color: rgba(37, 99, 235, 0.4);
+  color: var(--blue-300);
+}
+
+.local-mode-banner {
+  background: linear-gradient(90deg, var(--color-surface) 0%, var(--blue-50) 100%);
+  border-bottom: 1px solid var(--blue-100);
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+[data-theme="dark"] .local-mode-banner {
+  background: linear-gradient(90deg, var(--color-surface) 0%, rgba(37, 99, 235, 0.12) 100%);
+  border-bottom-color: var(--color-border);
+}
+
+
+/* ─── 6. Modals with Backdrop Blur & Scale-In ─── */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 10, 17, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: var(--space-4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--color-surface-elevated);
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), var(--shadow-blue-glow);
+  transform: scale(0.94) translateY(10px);
+  transition: transform var(--duration-normal) var(--ease-smooth);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: background-color var(--duration-fast) var(--ease-smooth), color var(--duration-fast) var(--ease-smooth);
+}
+.modal-close:hover {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-primary);
+}
+
+.modal-body {
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+
+/* ─── 7. Requirement Items & Check Interactions ─── */
+
+.requirement-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-2);
+  background-color: var(--color-surface-elevated);
+  transition: border-color var(--duration-fast) var(--ease-smooth),
+              background-color var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.requirement-item:hover {
+  border-color: var(--blue-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.requirement-item.completed {
+  background-color: var(--color-surface);
+  opacity: 0.85;
+}
+
+.requirement-item.completed .requirement-title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.requirement-content {
+  flex: 1;
+}
+
+.requirement-title {
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.requirement-actions {
+  display: flex;
+  gap: var(--space-2);
+  opacity: 0.4;
+  transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.requirement-item:hover .requirement-actions {
+  opacity: 1;
+}
+
+/* ─── 8. Readiness Panels ─── */
+
+.readiness-panel {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-elevated);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.readiness-panel.readiness-ready {
+  background: linear-gradient(135deg, var(--color-surface-elevated) 0%, rgba(22, 163, 74, 0.08) 100%);
+  border-color: rgba(22, 163, 74, 0.35);
+  box-shadow: 0 0 20px -5px rgba(22, 163, 74, 0.2);
+}
+
+.readiness-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+
+.readiness-display {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-accent-blue);
+}
+
+
+/* ─── 9. Empty States & Skeletons ─── */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  border: 1.5px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-border) 50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite var(--ease-in-out);
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

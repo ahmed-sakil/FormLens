@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+  <title>Get Started — FormLens</title>
+</head>
+<body class="auth-page">
+  
+  <div class="auth-split-wrapper">
+    <!-- Left Workflow & Instruction Panel -->
+    <div class="auth-guide-panel">
+      <div>
+        <div class="auth-guide-brand">
+          <span>FormLens</span>
+        </div>
+        <h2 class="auth-guide-title">
+          Know exactly what you need. <span>Submit on time.</span>
+        </h2>
+        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
+          FormLens organizes all your applications and deadlines into clear, actionable readiness scores.
+        </p>
+
+        <div class="auth-workflow-list">
+          <div class="auth-workflow-item">
+            <div class="auth-step-number">1</div>
+            <div class="auth-step-text">
+              <strong>Define Application &amp; Deadline</strong>
+              <p>Create entries for universities, scholarships, jobs, visas, or certifications with due dates.</p>
+            </div>
+          </div>
+          <div class="auth-workflow-item">
+            <div class="auth-step-number">2</div>
+            <div class="auth-step-text">
+              <strong>Add Requirements &amp; Documents</strong>
+              <p>Break down prerequisites, forms, transcripts, and passport expiry dates.</p>
+            </div>
+          </div>
+          <div class="auth-workflow-item">
+            <div class="auth-step-number">3</div>
+            <div class="auth-step-text">
+              <strong>Track Readiness &amp; Missing Items</strong>
+              <p>Live percentage calculation shows exactly what's left before you can submit.</p>
+            </div>
+          </div>
+          <div class="auth-workflow-item">
+            <div class="auth-step-number">4</div>
+            <div class="auth-step-text">
+              <strong>Automated Email Reminders</strong>
+              <p>Receive scheduled alerts at 30, 14, 7, 3, and 1 day before deadlines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-guide-footer">
+        🔒 Local data in this browser will be automatically imported to your new account upon signup.
+      </div>
+    </div>
+
+    <!-- Right Signup Form -->
+    <div class="auth-form-panel">
+      <div class="auth-header">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Get started with cloud sync and email alerts</p>
+      </div>
+
+      <div id="error-container" class="auth-error hidden"></div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" id="name" class="form-input" placeholder="e.g. Alex Morgan" required>
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="alex@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="Minimum 8 characters" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <input type="password" id="confirm-password" class="form-input" placeholder="Repeat your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: var(--space-4);">
+          Create Free Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign In</a> &nbsp;·&nbsp; <a href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/pages/register.js"></script>
+</body>
+</html>

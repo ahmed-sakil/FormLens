@@ -1,0 +1,74 @@
+/* Application Detail Page Styles */
+
+.app-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.app-title-area h1 {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+}
+
+.app-meta {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.panels-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.deadline-panel {
+  padding: var(--space-6);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.document-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 800px) {
+  .panels-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-header-card {
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+  }
+}

@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum ApplicationCategory {
+  UNIVERSITY
+  SCHOLARSHIP
+  JOB
+  INTERNSHIP
+  VISA
+  GOVERNMENT
+  CERTIFICATION
+  OTHER
+}
+
+enum ApplicationStatus {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum ReminderType {
+  DAYS_1
+  DAYS_3
+  DAYS_7
+  DAYS_14
+  DAYS_30
+}
+
+enum ReminderStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
+model Profile {
+  id                String        @id @default(uuid())
+  authUserId        String        @unique
+  name              String
+  passwordChangedAt DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  applications      Application[]
+
+  @@index([authUserId])
+}
+
+model Application {
+  id           String              @id @default(uuid())
+  profileId    String
+  profile      Profile             @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  category     ApplicationCategory
+  deadline     DateTime?
+  status       ApplicationStatus   @default(ACTIVE)
+  archived     Boolean             @default(false)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  requirements Requirement[]
+  reminders    Reminder[]
+
+  @@index([profileId])
+  @@index([deadline])
+  @@index([status])
+  @@index([profileId, status])
+}
+
+model Requirement {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  title         String
+  description   String?
+  required      Boolean     @default(true)
+  completed     Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  document      Document?
+
+  @@index([applicationId])
+}
+
+model Document {
+  id            String      @id @default(uuid())
+  requirementId String      @unique
+  requirement   Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+  name          String
+  documentType  String?
+  issueDate     DateTime?
+  expiryDate    DateTime?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Reminder {
+  id            String         @id @default(uuid())
+  applicationId String
+  application   Application    @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  remindAt      DateTime
+  type          ReminderType
+  status        ReminderStatus @default(PENDING)
+  sentAt        DateTime?
+  failureReason String?
+  createdAt     DateTime       @default(now())
+
+  @@unique([applicationId, type])
+  @@index([status, remindAt])
+}

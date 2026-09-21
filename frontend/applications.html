@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+
+  <title>Applications — FormLens</title>
+</head>
+<body>
+  
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">FormLens</div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link" id="link-dashboard">Dashboard</a>
+      <a href="applications.html" class="sidebar-link" id="link-applications">Applications</a>
+      <a href="profile.html" class="sidebar-link" id="link-profile">Profile</a>
+      <a href="settings.html" class="sidebar-link" id="link-settings">Settings</a>
+    </nav>
+  </aside>
+  <div class="main-content">
+    <div id="navbar-container"></div>
+    <main class="page-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <h1>Applications</h1>
+          <button id="new-app-btn" class="btn btn-primary">New Application</button>
+        </div>
+        
+        <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-6); flex-wrap: wrap;">
+          <input type="text" id="search" class="form-input" placeholder="Search..." style="max-width: 300px;">
+          <select id="filter-category" class="form-select" style="width: auto;">
+            <option value="">All Categories</option>
+            <option value="UNIVERSITY">University</option>
+            <option value="SCHOLARSHIP">Scholarship</option>
+            <option value="JOB">Job</option>
+            <option value="INTERNSHIP">Internship</option>
+            <option value="VISA">Visa</option>
+            <option value="GOVERNMENT">Government</option>
+            <option value="CERTIFICATION">Certification</option>
+            <option value="OTHER">Other</option>
+          </select>
+          <select id="filter-status" class="form-select" style="width: auto;">
+            <option value="">All Statuses</option>
+            <option value="ACTIVE">Active</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="ARCHIVED">Archived</option>
+          </select>
+          <select id="sort" class="form-select" style="width: auto; margin-left: auto;">
+            <option value="created">Recently Created</option>
+            <option value="deadline">Deadline</option>
+            <option value="title">Title A-Z</option>
+          </select>
+        </div>
+        
+        <div id="applications-grid" class="grid-3">
+          <div class="skeleton" style="height: 120px; border-radius: var(--radius-lg);"></div>
+          <div class="skeleton" style="height: 120px; border-radius: var(--radius-lg);"></div>
+          <div class="skeleton" style="height: 120px; border-radius: var(--radius-lg);"></div>
+        </div>
+  
+      </div>
+    </main>
+  </div>
+</div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+
+  <script type="module" src="js/pages/applications.js"></script>
+  <script>document.getElementById('link-applications').classList.add('active');</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FormLens — Know exactly what you need. Track application requirements, deadlines, and readiness in one place.">
+  <title>FormLens — Application &amp; Deadline Readiness Manager</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+  <style>
+    .landing-wrapper {
+      background-image: radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.12) 0%, transparent 60%);
+      min-height: 100vh;
+    }
+    [data-theme="dark"] .landing-wrapper {
+      background-image: radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.18) 0%, transparent 60%);
+    }
+    .landing-hero {
+      text-align: center;
+      padding: var(--space-20) var(--space-4) var(--space-16);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .landing-hero h1 {
+      font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: var(--space-6);
+      letter-spacing: -0.03em;
+    }
+    .landing-hero h1 span.highlight {
+      background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--blue-600) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    [data-theme="dark"] .landing-hero h1 span.highlight {
+      background: linear-gradient(135deg, #ffffff 0%, var(--blue-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .landing-hero p {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--space-10);
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .local-mode-note {
+      margin-top: var(--space-6);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+    .features-section {
+      padding: var(--space-16) var(--space-6);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .features-section h2 {
+      text-align: center;
+      font-size: var(--font-size-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-12);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-6);
+    }
+    .feature-card {
+      padding: var(--space-8) var(--space-6);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      background: var(--color-surface-elevated);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--duration-normal) var(--ease-smooth),
+                  border-color var(--duration-normal) var(--ease-smooth),
+                  box-shadow var(--duration-normal) var(--ease-smooth);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue-300);
+      box-shadow: var(--shadow-md), var(--shadow-blue-glow);
+    }
+    [data-theme="dark"] .feature-card:hover {
+      border-color: var(--blue-700);
+    }
+    .feature-icon {
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--blue-50);
+      color: var(--blue-600);
+      border-radius: var(--radius);
+      margin-bottom: var(--space-4);
+    }
+    [data-theme="dark"] .feature-icon {
+      background: rgba(37, 99, 235, 0.2);
+      color: var(--blue-300);
+    }
+    .feature-card h3 {
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    .feature-card p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .local-mode-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-4);
+    }
+    .local-mode-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .local-mode-inner h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .local-mode-inner p {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+    .landing-footer {
+      padding: var(--space-8) var(--space-4);
+      text-align: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border);
+    }
+    .landing-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-8);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    [data-theme="dark"] .landing-nav {
+      background: rgba(7, 10, 17, 0.85);
+    }
+    .landing-nav-brand {
+      font-weight: 800;
+      font-size: var(--font-size-xl);
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+      text-decoration: none;
+    }
+    .landing-nav-actions {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="landing-wrapper">
+    <noscript>
+      <div style="padding: 1rem; background: #fef2f2; text-align: center; color: #dc2626;">
+        FormLens requires JavaScript to run. Please enable JavaScript in your browser.
+      </div>
+    </noscript>
+
+    <!-- Navbar -->
+    <nav class="landing-nav" aria-label="Main navigation">
+      <a href="index.html" class="landing-nav-brand">FormLens</a>
+      <div class="landing-nav-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </nav>
+
+    <main class="page-content">
+      <!-- Hero -->
+      <section class="landing-hero" aria-labelledby="hero-heading">
+        <h1 id="hero-heading">Know exactly what you need.<br><span class="highlight">Submit with confidence.</span></h1>
+        <p>FormLens helps you track application requirements, monitor deadlines, and check readiness — for jobs, universities, scholarships, visas, and more.</p>
+        <div class="hero-actions">
+          <a href="register.html" class="btn btn-primary btn-lg">Get Started Free</a>
+          <button id="continue-guest" class="btn btn-secondary btn-lg" type="button">Continue without account</button>
+        </div>
+        <p class="local-mode-note">No credit card required &nbsp;·&nbsp; Guest mode: full app, data stored locally in your browser</p>
+      </section>
+
+      <!-- Features -->
+      <section class="features-section" aria-labelledby="features-heading">
+        <h2 id="features-heading">Everything you need to stay ready</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">✓</div>
+            <h3>Requirement Tracking</h3>
+            <p>List every document, form, and task your application needs. Mark items required or optional and track completion as you go.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◷</div>
+            <h3>Deadline Monitoring</h3>
+            <p>Never miss a deadline. See days remaining with clear status indicators — Normal, Approaching, Urgent, or Expired.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◎</div>
+            <h3>Readiness Check</h3>
+            <p>Instantly see what percentage ready you are and exactly what's still missing before you can submit.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⊠</div>
+            <h3>Document Info</h3>
+            <p>Record issue dates and expiry dates for passports, certificates, and other documents. Get warned before they expire.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◫</div>
+            <h3>Email Reminders</h3>
+            <p>Register for a free account and receive automatic email reminders 30, 14, 7, 3, or 1 day before your deadline.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◈</div>
+            <h3>Local &amp; Cloud Sync</h3>
+            <p>Start immediately without an account. All data stays in your browser. Create an account anytime to sync to the cloud.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Local Mode explanation -->
+      <section class="local-mode-section" aria-labelledby="local-mode-heading">
+        <div class="local-mode-inner">
+          <div class="local-mode-badge" style="margin-bottom: var(--space-4);">
+            <span aria-hidden="true">◉</span>
+            Local Mode
+          </div>
+          <h2 id="local-mode-heading">Use FormLens without an account</h2>
+          <p>
+            FormLens works entirely in your browser. No sign-up, no email, no password.
+            Your applications, requirements, and deadlines are stored locally and persist
+            between sessions on this device.
+          </p>
+          <p style="font-size: var(--font-size-sm); margin-bottom: var(--space-8);">
+            When you're ready to sync across devices or receive email reminders, create a
+            free account and your local data will be imported automatically.
+          </p>
+          <button id="try-guest" class="btn btn-secondary btn-lg" type="button">Try Local Mode Now</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <p>© 2026 FormLens &nbsp;·&nbsp; <a href="login.html">Sign In</a> &nbsp;·&nbsp; <a href="register.html">Create Account</a></p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sonner@latest/dist/index.umd.js"></script>
+  <script src="env.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/pages/landing.js"></script>
+</body>
+</html>
