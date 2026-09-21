@@ -52,11 +52,11 @@ export async function deleteApplication(profileId, applicationId) {
 
 export async function calculateReadiness(profileId, applicationId) {
   const app = await getApplication(profileId, applicationId);
-  const reqs = app.requirements.filter(r => r.required);
+  const reqs = (app.requirements || []).filter(r => r.required !== false);
   const total = reqs.length;
   const completed = reqs.filter(r => r.completed).length;
-  const percentage = total === 0 ? 100 : Math.round((completed / total) * 100);
-  const ready = percentage === 100;
+  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+  const ready = total > 0 && completed === total;
   const missing = reqs.filter(r => !r.completed).map(r => ({ id: r.id, title: r.title }));
 
   return { total, completed, percentage, ready, missing };

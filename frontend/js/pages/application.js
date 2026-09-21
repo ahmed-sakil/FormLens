@@ -40,11 +40,11 @@ async function loadData() {
 }
 
 function getReadinessCalc() {
-  const required = reqs.filter(r => r.required);
+  const required = reqs.filter(r => r.required !== false);
   const completed = required.filter(r => r.completed);
   const missing = required.filter(r => !r.completed);
   const total = required.length;
-  const percentage = total === 0 ? 100 : Math.round((completed.length / total) * 100);
+  const percentage = total === 0 ? 0 : Math.round((completed.length / total) * 100);
   return { percentage, ready: total > 0 && completed.length === total, missing, total, completedCount: completed.length };
 }
 
@@ -68,7 +68,7 @@ function renderAll() {
   ));
 
   readinessPanel.appendChild(createElement('p', { style: 'font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-2);' },
-    total === 0 ? 'No required items yet.' : `${completedCount} of ${total} required item${total > 1 ? 's' : ''} completed`
+    total === 0 ? 'No requirements added yet (0% readiness).' : `${completedCount} of ${total} required item${total > 1 ? 's' : ''} completed`
   ));
   
   readinessPanel.appendChild(createProgressBar(percentage));
@@ -105,6 +105,8 @@ function renderRequirements() {
   
   reqs.forEach(r => {
     container.appendChild(createRequirementItem(r, {
+      docInfo: docs[r.id],
+      onDocInfo: () => openDocModal(r.id, r.title, docs[r.id]),
       onToggle: async (checked) => {
         try {
           await updateRequirement(appId, r.id, { completed: checked });
@@ -134,12 +136,18 @@ function renderDocuments() {
   const container = $('#documents-grid');
   container.innerHTML = '';
   
-  if (reqs.length === 0) {
-    container.innerHTML = '<p class="text-muted" style="font-size: var(--font-size-sm);">Add requirements above to record document metadata.</p>';
+  const recordedDocs = reqs.filter(r => !!docs[r.id]);
+  
+  if (recordedDocs.length === 0) {
+    container.innerHTML = `
+      <div style="padding: var(--space-4); border: 1px dashed var(--color-border); border-radius: var(--radius); color: var(--color-text-muted); font-size: var(--font-size-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: gap: var(--space-2);">
+        <span>No optional document metadata recorded yet. You can attach document dates/notes to any requirement.</span>
+      </div>
+    `;
     return;
   }
 
-  reqs.forEach(r => {
+  recordedDocs.forEach(r => {
     const doc = docs[r.id];
     let expiryBadge = '';
     if (doc?.expiryDate) {
@@ -149,7 +157,7 @@ function renderDocuments() {
         'Expiring Soon': 'var(--color-warning)',
         'Expired': 'var(--color-danger)'
       };
-      expiryBadge = `<span style="display: inline-block; font-size: var(--font-size-xs); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.05); color: ${colors[exp.status] || 'inherit'}; font-weight: 500;">${exp.status}</span>`;
+      expiryBadge = `<span style="display: inline-block; font-size: var(--font-size-xs); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.05); color: ${colors[exp.status] || 'inherit'}; font-weight: 600;">${exp.status}</span>`;
     }
 
     const card = createElement('div', { className: 'card', style: 'padding: var(--space-4); margin-bottom: var(--space-3);' },
@@ -157,17 +165,30 @@ function renderDocuments() {
         createElement('strong', {}, r.title),
         createElement('div', { html: expiryBadge })
       ),
-      doc ? createElement('div', { style: 'font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);' },
-        createElement('div', {}, `Document: ${doc.name || 'Document'}`),
+      createElement('div', { style: 'font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);' },
+        createElement('div', {}, `Document: ${doc.name || r.title}`),
         doc.documentType ? createElement('div', {}, `Type: ${doc.documentType}`) : '',
         doc.issueDate ? createElement('div', {}, `Issued: ${formatDateShort(doc.issueDate)}`) : '',
         doc.expiryDate ? createElement('div', {}, `Expires: ${formatDateShort(doc.expiryDate)}`) : '',
         doc.notes ? createElement('div', { style: 'font-style: italic; margin-top: 4px;' }, `Note: ${doc.notes}`) : ''
-      ) : createElement('p', { style: 'font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);' }, 'No document details recorded.'),
-      createElement('button', {
-        className: doc ? 'btn btn-ghost btn-sm' : 'btn btn-secondary btn-sm',
-        onclick: () => openDocModal(r.id, r.title, doc)
-      }, doc ? 'Edit Document Info' : '+ Add Document Info')
+      ),
+      createElement('div', { style: 'display: flex; gap: var(--space-2);' },
+        createElement('button', {
+          className: 'btn btn-ghost btn-xs',
+          onclick: () => openDocModal(r.id, r.title, doc)
+        }, 'Edit Details'),
+        createElement('button', {
+          className: 'btn btn-ghost btn-xs',
+          style: 'color: var(--color-danger);',
+          onclick: async () => {
+            if (await confirmDialog({ title: 'Remove Document Info?', message: `Remove metadata for "${r.title}"?` })) {
+              delete docs[r.id];
+              renderAll();
+              toast.success('Document info removed');
+            }
+          }
+        }, 'Remove')
+      )
     );
     container.appendChild(card);
   });
