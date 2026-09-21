@@ -1,4 +1,4 @@
-import { getToken, logout } from '../auth/authService.js';
+import { getToken, logout, getSession } from '../auth/authService.js';
 import { setMode } from '../services/modeService.js';
 
 const BASE_URL = window.ENV.API_URL;
@@ -19,13 +19,21 @@ export async function apiFetch(path, options = {}) {
   if (response.status === 401) {
     const isAuthPage = window.location.pathname.includes('login') || window.location.pathname.includes('register');
     if (!isAuthPage && !path.includes('/auth/')) {
-      try {
-        await logout();
-      } catch {}
-      setMode('guest');
-      window.location.href = 'login.html?expired=1';
+      const session = await getSession().catch(() => null);
+      const now = Math.floor(Date.now() / 1000);
+      
+      // Only redirect if the Supabase session is genuinely expired or missing
+      if (!session || (session.expires_at && session.expires_at < now)) {
+        try {
+          await logout();
+        } catch {}
+        setMode('guest');
+        window.location.href = 'login.html?expired=1';
+      } else {
+        console.warn('Backend 401 response while Supabase session is active');
+      }
     }
-    throw new ApiError('UNAUTHORIZED', 'Session invalid or expired.', 401);
+    throw new ApiError('UNAUTHORIZED', 'Authentication failed or session expired.', 401);
   }
   
   if (response.status === 429) {
