@@ -1,6 +1,7 @@
 import { initNavbar } from '../components/navbar.js';
 import { getApplications, getReadiness } from '../services/applicationService.js';
 import { isGuest } from '../services/modeService.js';
+import { getUser } from '../auth/authService.js';
 import { $, createElement } from '../utils/domUtils.js';
 import { createApplicationCard } from '../components/applicationCard.js';
 import { daysUntil } from '../utils/dateUtils.js';
@@ -14,6 +15,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       createElement('a', { href: 'register.html', className: 'btn btn-primary btn-sm' }, 'Sync Data')
     );
     $('.main-content')?.insertBefore(banner, $('.page-content'));
+  } else {
+    getUser().then(user => {
+      const name = user?.user_metadata?.full_name || user?.user_metadata?.name || '';
+      if (name && $('#greeting-heading')) {
+        $('#greeting-heading').textContent = `Hello, ${name} 👋`;
+      }
+    }).catch(() => {});
   }
 
   const upcomingContainer = $('#upcoming-deadlines');

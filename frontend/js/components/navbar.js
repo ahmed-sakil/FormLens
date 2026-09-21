@@ -12,22 +12,12 @@ export async function renderNavbar() {
       createElement('a', { href: 'register.html', className: 'btn btn-primary btn-sm' }, 'Sign Up')
     );
   } else {
-    try {
-      const user = await getUser();
-      rightContent = createElement('div', { className: 'navbar-right' },
-        createElement('span', { className: 'user-greeting' }, `Hello, ${user?.user_metadata?.full_name || 'User'}`),
-        createElement('a', { href: 'profile.html', className: 'btn btn-ghost btn-sm' }, 'Profile'),
-        createElement('a', { href: 'settings.html', className: 'btn btn-ghost btn-sm' }, 'Settings'),
-        createElement('button', { 
-          className: 'btn btn-secondary btn-sm', 
-          onclick: async () => { await logout(); window.location.href = 'login.html'; } 
-        }, 'Logout')
-      );
-    } catch {
-      rightContent = createElement('div', { className: 'navbar-right' },
-        createElement('a', { href: 'login.html', className: 'btn btn-primary btn-sm' }, 'Login')
-      );
-    }
+    rightContent = createElement('div', { className: 'navbar-right' },
+      createElement('button', { 
+        className: 'btn btn-secondary btn-sm', 
+        onclick: async () => { await logout(); window.location.href = 'login.html'; } 
+      }, 'Logout')
+    );
   }
 
   return createElement('header', { className: 'navbar' },
